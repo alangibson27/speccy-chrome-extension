@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Speccy Borders",
+  "version": "1.0",
+  "content_scripts": [{
+      "matches": ["*://*/*"],
+      "css": ["speccy.css", "speccy-border.css"],
+      "js": ["speccy.js"],
+      "run_at": "document_end"
+  }]
+}
