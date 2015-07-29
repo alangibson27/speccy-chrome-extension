@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Speccy Loading Borders Options</title>
+    <link rel="stylesheet" href="speccy.css"/>
+    <link rel="stylesheet" href="speccy-border.css"/>
+</head>
+<body>
+
+    <p>Border colours:
+    <select id="colours">
+        <option value="header">Header (red/cyan)</option>
+        <option value="bytes">Bytes (blue/yellow)</option>
+        <option value="random">Random</option>
+    </select>
+    </p>
+
+    <p>Activation:</p>
+    <input type="radio" name="activation" id="startTimeout" checked>After <input type="text" id="startTimeoutValue" value="2" size="2">second(s)<br>
+    <input type="radio" name="activation" id="startAlways">Always activate
+
+    <p>Deactivation:</p>
+    <input type="radio" name="deactivation" id="endImmediately" checked>As soon as page has loaded<br>
+    <input type="radio" name="deactivation" id="endTimeout">After <input type="text" id="endTimeoutValue" value="2" size="2">second(s)
+
+    <p><button id="test">Test</button>
+        <button id="save">Save</button></p>
+    <div id="status"></div>
+
+    <script src="speccy.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>
