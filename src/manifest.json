@@ -5,7 +5,9 @@
   "content_scripts": [{
       "matches": ["*://*/*"],
       "css": ["speccy.css", "speccy-border.css"],
-      "js": ["speccy.js"],
+      "js": ["speccy.js", "speccy_launch.js"],
       "run_at": "document_end"
-  }]
+  }],
+  "permissions": ["storage"],
+  "options_page": "options.html"
 }
