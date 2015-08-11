@@ -6,7 +6,7 @@
       "matches": ["*://*/*"],
       "css": ["speccy.css", "speccy-border.css"],
       "js": ["speccy.js", "speccy_launch.js"],
-      "run_at": "document_end"
+      "run_at": "document_start"
   }],
   "permissions": ["storage"],
   "options_page": "options.html"

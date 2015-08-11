@@ -1,4 +1,6 @@
 function add_borders() {
+    // Add divs to the top, bottom, left and right of the body, which can then
+    // have a loading border style applied to them.
     var borderleft = document.createElement("div")
     var borderright = document.createElement("div")
     var bordertop = document.createElement("div")
@@ -18,25 +20,39 @@ function add_borders() {
 }
 
 function run_with_options(options) {
+    // If the document body tag has been loaded already, inject our borders.
+    // Otherwise, wait half a second and try again.
+    if (document.body) {
+        run_now(options)
+    } else {
+        setTimeout(run_with_options, 500, options)
+    }
+}
+
+function run_now(options) {
     var borders = add_borders()
     var showTimeoutId
 
+    // Show the borders either immediately or after a timeout.
     if (options.startAlways) {
         show_borders(options, borders)
     } else {
         showTimeoutId = setTimeout(show_borders, options.startTimeoutValue * 1000, options, borders)
     }
 
-    window.addEventListener("load", function() {
+    // Set the borders to be hidden at some point after the page has finished
+    // loading.
+    window.onload = function() {
         if (options.endImmediately) {
             hide_borders(borders, showTimeoutId)
         } else {
             setTimeout(hide_borders, options.endTimeoutValue * 1000, borders, showTimeoutId)
         }
-    })
+    }
 }
 
 function show_borders(options, borders) {
+    console.log('show_borders called')
     var pattern
     switch (options.colours) {
         case 'header':
@@ -62,6 +78,7 @@ function show_borders(options, borders) {
 }
 
 function hide_borders(borders, showTimeoutId) {
+    // Make sure any timeout for showing the borders is cleared.
     if (showTimeoutId) {
         clearTimeout(showTimeoutId)
     }
