@@ -24,7 +24,7 @@ function restore_options() {
         colours: 'header',
         startAlways: false,
         startTimeoutValue: 1,
-        endImmediately: false,
+        endImmediately: true,
         endTimeoutValue: 2
     }, function(items) {
         document.getElementById('colours').value = items.colours
