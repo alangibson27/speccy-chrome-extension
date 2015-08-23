@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Speccy Borders",
+  "name": "Speccy Loading Borders",
   "version": "1.0",
   "content_scripts": [{
       "matches": ["*://*/*"],
@@ -9,5 +9,9 @@
       "run_at": "document_start"
   }],
   "permissions": ["storage"],
-  "options_page": "options.html"
+  "options_page": "options.html",
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
 }
