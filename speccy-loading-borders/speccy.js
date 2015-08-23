@@ -58,6 +58,7 @@ function run_now(options) {
 }
 
 function show_borders(options, borders) {
+    // If page loading has already completed, don't show any borders.
     if (!loaded) {
         var pattern
         switch (options.colours) {
