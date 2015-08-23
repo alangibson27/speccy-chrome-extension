@@ -1,3 +1,9 @@
+var loaded = false
+
+window.addEventListener('load', function() {
+    loaded = true
+}, false)
+
 function add_borders() {
     // Add divs to the top, bottom, left and right of the body, which can then
     // have a loading border style applied to them.
@@ -33,48 +39,49 @@ function run_now(options) {
     var borders = add_borders()
     var showTimeoutId
 
+    // Set the borders to be hidden at some point after the page has finished
+    // loading.
+    window.addEventListener('load', function() {
+        if (options.endImmediately) {
+            hide_borders(borders, showTimeoutId)
+        } else {
+            setTimeout(hide_borders, options.endTimeoutValue * 1000, borders, showTimeoutId)
+        }
+    }, false)
+
     // Show the borders either immediately or after a timeout.
     if (options.startAlways) {
         show_borders(options, borders)
     } else {
         showTimeoutId = setTimeout(show_borders, options.startTimeoutValue * 1000, options, borders)
     }
-
-    // Set the borders to be hidden at some point after the page has finished
-    // loading.
-    window.onload = function() {
-        if (options.endImmediately) {
-            hide_borders(borders, showTimeoutId)
-        } else {
-            setTimeout(hide_borders, options.endTimeoutValue * 1000, borders, showTimeoutId)
-        }
-    }
 }
 
 function show_borders(options, borders) {
-    console.log('show_borders called')
-    var pattern
-    switch (options.colours) {
-        case 'header':
-            pattern = 'speccy-header'
-            break
+    if (!loaded) {
+        var pattern
+        switch (options.colours) {
+            case 'header':
+                pattern = 'speccy-header'
+                break
 
-        case 'bytes':
-            pattern = 'speccy-bytes'
-            break
+            case 'bytes':
+                pattern = 'speccy-bytes'
+                break
 
-        case 'random':
-            if (Math.floor((Math.random() * 10)) % 2 == 0) {
-                pattern = "speccy-header"
-            } else {
-                pattern = "speccy-bytes"
-            }
+            case 'random':
+                if (Math.floor((Math.random() * 10)) % 2 == 0) {
+                    pattern = "speccy-header"
+                } else {
+                    pattern = "speccy-bytes"
+                }
+        }
+
+        borders.borderleft.setAttribute("class", pattern + " speccy-left")
+        borders.borderright.setAttribute("class", pattern + " speccy-right")
+        borders.bordertop.setAttribute("class", pattern + " speccy-top")
+        borders.borderbottom.setAttribute("class", pattern + " speccy-bottom")
     }
-
-    borders.borderleft.setAttribute("class", pattern + " speccy-left")
-    borders.borderright.setAttribute("class", pattern + " speccy-right")
-    borders.bordertop.setAttribute("class", pattern + " speccy-top")
-    borders.borderbottom.setAttribute("class", pattern + " speccy-bottom")
 }
 
 function hide_borders(borders, showTimeoutId) {
